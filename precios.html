@@ -1,37 +1,41 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Precios de tus mejores guitarras!!</title>
+    <title>Invie - tus mejores guitarras!!</title>
     <meta charset="utf-8"/>
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700|Allerta' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/invie.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <!-- <link rel="stylesheet" media="(max-width: 800px)" href="css/media-querie.css"/> -->
   </head>
-  <body>
-    <header id="header" class="header background"> <!-- header -->
-      <div class="contenedor">
+  <body class="precios">
+    <header id="header" class="header contenedor"> <!-- header -->
         <figure class="logotipo"> <!-- logotipo -->
-          <img src="images/invie.png" width="186" height="60" alt="Invie logotipo"/>
+          <img src="images/invie.png" srcset="images/invie.png 1x, images/invie2x.png 2x" width="186" height="60" alt="Invie logotipo"/>
         </figure>
-        <nav class="menu"> <!-- menu -->
+        <span class="burguer-button icon-menu" id="burguer-button"></span>
+        <nav class="menu" id="menu"> <!-- menu -->
           <ul>
             <li>
               <a href="index.html">Home</a>
             </li>
             <li>
-              <a href="index.html#guitarras">Guitarras</a>
+              <a href="#guitarras">Guitarras</a>
             </li>
             <li>
               <a href="precios.html">Precios</a>
             </li>
           </ul>
         </nav>
-      </div>
     </header>
     <section class="tabla">
       <div class="contenedor">
         <table>
           <thead>
             <tr>
+              <th>Modelo</th>
+              <th>Precio</th>
+              <th>Descripción</th>
               <th>Modelo</th>
               <th>Precio</th>
               <th>Descripción</th>
@@ -42,13 +46,22 @@
               <td>Invie classic</td>
               <td>$100000</td>
               <td>Una guitarra muy pro</td>
-            </tr>
-            <tr>
               <td>Invie classic</td>
               <td>$100000</td>
               <td>Una guitarra muy pro</td>
             </tr>
             <tr>
+              <td>Invie classic</td>
+              <td>$100000</td>
+              <td>Una guitarra muy pro</td>
+              <td>Invie classic</td>
+              <td>$100000</td>
+              <td>Una guitarra muy pro</td>
+            </tr>
+            <tr>
+              <td>Invie classic</td>
+              <td>$100000</td>
+              <td>Una guitarra muy pro</td>
               <td>Invie classic</td>
               <td>$100000</td>
               <td>Una guitarra muy pro</td>
@@ -60,7 +73,7 @@
     <footer class="footer">
       <div class="contenedor">
         <div class="contacto">
-          <img src="images/invie-white.png" alt="logotipo blanco"/>
+          <img data-src="images/invie-white.png|images/invie-white2x.png" alt="logotipo blanco"/>
           <a href="tel:+573024456678"><strong>Telefono</strong> <span>3024456678</span></a>
           <a href="mailto:contacto@invie.com"><strong>E-mail</strong> <span>contacto@invie.com</span></a>
         </div>
@@ -101,5 +114,53 @@
         </form>
       </div>
     </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/blazy/1.5.4/blazy.min.js"></script>
+    <script>
+
+      var consulta = window.matchMedia('(max-width: 500px)');
+      var burguerButton = document.getElementById('burguer-button');
+      var menu = document.getElementById('menu');
+      
+      consulta.addListener(mediaQuery);
+      
+      function toggleMenu() {
+            menu.classList.toggle('active')
+      };
+       function showMenu() {
+            menu.classList.add('active')
+      }; 
+       function hideMenu() {
+            menu.classList.remove('active')
+      };  
+
+      function mediaQuery() {
+        if(consulta.matches) {
+          console.log('Se cumplió la condición');
+          burguerButton.addEventListener('touchstart', toggleMenu);
+
+          function toggleMenu() {
+            menu.classList.toggle('active')
+          };         
+        }
+        else {
+          burguerButton.removeEventListener('touchstart', toggleMenu);
+          console.log('No se cumplió la condición');
+        } 
+      }
+      mediaQuery();
+
+      // lazy loading
+      var bLazy = new Blazy({
+          selector: 'img'
+      });
+
+      // Gestos touch
+      var $body = document.body;
+
+      var gestos = new Hammer($body);
+      gestos.on('swipeleft', hideMenu);
+      gestos.on('swiperight', showMenu); 
+    </script>
   </body>
 </html>
